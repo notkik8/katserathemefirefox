@@ -1,0 +1,169 @@
+/* Calm Dark — новая вкладка: ярлыки-плитки в скруглённой панели */
+
+@-moz-document url("about:newtab"), url("about:home"), url("about:blank") {
+  :root, body {
+    --newtab-background-color: #141414 !important;
+    --newtab-background-color-secondary: #1c1c1c !important;
+    --newtab-text-primary-color: #e4e4e4 !important;
+    --newtab-element-hover-color: #2a2a2a !important;
+    background-color: #141414 !important;
+  }
+
+  /* Только ярлыки: без логотипа, поиска, рекомендаций, подписей */
+  .logo-and-wordmark-wrapper, .logo-and-wordmark,
+  .search-wrapper, .search-inner-wrapper,
+  .ds-outer-wrapper-breakpoint-override, .ds-layout,
+  #customize-menu-button, .personalize-button,
+  .open-customization-button, .personalizeButtonWrapper,
+  .add-button-hidden,
+  .weather, .wallpaper-attribution, .notification-feed,
+  .top-site-outer .title,
+  .top-site-outer .screenshot,
+  .top-site-outer.add-button { display: none !important; }
+
+  /* Всё по центру экрана */
+  .outer-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-height: 100vh !important;
+    padding: 0 !important;
+  }
+  main, .non-collapsible-section, .top-sites, .section-top-bordered {
+    margin: 0 auto !important; padding: 0 !important; width: auto !important;
+    border: none !important;
+  }
+
+  /* Плитки без подложки, ровно по центру экрана, до 5 в ряд */
+  .top-sites-list {
+    position: fixed !important;
+    inset: 0 !important;
+    margin: auto !important;
+    width: fit-content !important;
+    max-width: calc(5 * 128px + 4 * 10px) !important;
+    height: fit-content !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    padding: 0 !important;
+    background: none !important;
+  }
+  .top-sites-list > li, .top-site-outer {
+    width: auto !important; margin: 0 !important; padding: 0 !important;
+  }
+  .top-site-outer .top-site-inner,
+  .top-site-outer .top-site-button { display: block !important; width: 100% !important; }
+  .top-site-outer { position: relative !important; }
+
+  /* Троеточие в правом верхнем углу плитки (появляется при наведении) */
+  .top-site-outer .context-menu-button {
+    display: block !important;
+    position: absolute !important;
+    inset-block-start: 6px !important;
+    inset-inline-end: 6px !important;
+    width: 22px !important;
+    height: 22px !important;
+    border-radius: 8px !important;
+    background-color: rgba(0, 0, 0, .28) !important;
+    background-size: 14px !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    fill: #e4e4e4 !important;
+    z-index: 2 !important;
+    transition: opacity .15s ease !important;
+  }
+  .top-site-outer .context-menu-button:hover { background-color: rgba(0, 0, 0, .45) !important; }
+
+  /* Кнопка «+» — такая же тёмная плитка с тонким плюсом */
+  .add-button-tile {
+    display: flex !important;
+    width: 128px !important;
+    height: 68px !important;
+  }
+  .add-button-tile .add-button {
+    position: static !important;
+    transform: none !important;
+    margin: 0 !important;
+    width: 128px !important;
+    height: 68px !important;
+    --button-background-color-primary: #1c1c1c;
+    --button-background-color-primary-hover: #232323;
+    --button-background-color-primary-active: #2a2a2a;
+    --button-text-color-primary: #6e6e6e;
+    --button-text-color-primary-hover: #b0b0b0;
+    --button-border-color-primary: transparent;
+  }
+  .add-button-tile .add-button::part(button) {
+    width: 128px !important;
+    min-width: 0 !important;
+    height: 68px !important;
+    padding: 0 !important;
+    border-radius: 20px !important;
+    border: 1px dashed #2e2e2e !important;
+    background-color: #1a1a1a !important;
+    color: #6e6e6e !important;
+    fill: #6e6e6e !important;
+    box-shadow: none !important;
+  }
+  .add-button-tile .add-button:hover::part(button) {
+    background-color: #222222 !important;
+    border-color: #3a3a3a !important;
+    color: #b0b0b0 !important;
+    fill: #b0b0b0 !important;
+  }
+
+  /* Плитка */
+  .top-site-outer .tile {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 128px !important;
+    height: 68px !important;
+    border-radius: 20px !important;
+    background-color: #232323 !important;
+    box-shadow: none !important;
+    outline: none !important;
+    transition: filter .15s ease !important;
+  }
+  .top-site-outer:hover .tile,
+  .top-site-outer .top-site-button:focus-visible .tile { filter: brightness(1.15); }
+
+  /* Иконка: маленькая и по центру, а не на всю плитку */
+  .top-site-outer .tile .icon-wrapper,
+  .top-site-outer .top-site-icon,
+  .top-site-outer .rich-icon,
+  .top-site-outer .default-icon {
+    position: static !important;
+    inset: auto !important;
+    width: 26px !important;
+    height: 26px !important;
+    margin: 0 !important;
+    background-size: 26px !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-color: transparent !important;
+    border-radius: 6px !important;
+    box-shadow: none !important;
+  }
+  .top-site-outer .tile .icon-wrapper .top-site-icon { width: 100% !important; height: 100% !important; }
+  .top-site-outer .default-icon { font-size: 15px !important; color: #9a9a9a !important; line-height: 26px !important; }
+
+  /* Фирменные цвета плиток */
+  .top-site-button[href*="pinterest."]   .tile { background-color: #c8102e !important; }
+  .top-site-button[href*="youtube."]     .tile { background-color: #c4302b !important; }
+  .top-site-button[href*="google.com"]   .tile,
+  .top-site-button[href*="mail.google"]  .tile { background-color: #d6d6d6 !important; }
+  .top-site-button[href*="gemini."]      .tile { background-color: #2b3a63 !important; }
+  .top-site-button[href*="proton."]      .tile { background-color: #5b45c9 !important; }
+  .top-site-button[href*="github."]      .tile { background-color: #e6e6e6 !important; }
+  .top-site-button[href*="figma."]       .tile { background-color: #2c2c2c !important; }
+  .top-site-button[href*="twitch."]      .tile { background-color: #7a4ad8 !important; }
+  .top-site-button[href*="vk.com"]       .tile { background-color: #2f6fd1 !important; }
+  .top-site-button[href*="notion."]      .tile { background-color: #ececec !important; }
+  .top-site-button[href*="spotify."]     .tile { background-color: #1db954 !important; }
+  .top-site-button[href*="telegram."] .tile,
+  .top-site-button[href*="t.me"]         .tile { background-color: #2aa3df !important; }
+}

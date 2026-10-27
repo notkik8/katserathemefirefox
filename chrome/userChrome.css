@@ -1,0 +1,153 @@
+/* ==========================================================
+   Calm Dark — спокойная тёмно-серая тема для Firefox
+   Компактные вкладки + одна строка с адресом, как в Chrome.
+   ========================================================== */
+
+:root {
+  /* Палитра: графит, без чистого чёрного */
+  --calm-bg-0: #141414;   /* полоса вкладок */
+  --calm-bg-1: #1c1c1c;   /* активная вкладка / тулбар */
+  --calm-bg-2: #242424;   /* поле адреса */
+  --calm-bg-3: #2e2e2e;   /* hover */
+  --calm-border: #262626;
+  --calm-text: #e4e4e4;
+  --calm-text-dim: #7c7c7c;
+  --calm-accent: #4a4a4a; /* мягкая серая рамка, без цвета */
+
+  /* Системные переменные Firefox */
+  --lwt-accent-color: var(--calm-bg-0) !important;
+  --lwt-accent-color-inactive: var(--calm-bg-0) !important;
+  --lwt-text-color: var(--calm-text-dim) !important;
+  --toolbar-bgcolor: var(--calm-bg-1) !important;
+  --toolbar-color: var(--calm-text) !important;
+  --toolbar-field-background-color: var(--calm-bg-2) !important;
+  --toolbar-field-color: var(--calm-text) !important;
+  --toolbar-field-focus-background-color: var(--calm-bg-2) !important;
+  --toolbar-field-focus-color: var(--calm-text) !important;
+  --toolbar-field-border-color: transparent !important;
+  --toolbar-field-focus-border-color: var(--calm-accent) !important;
+  --toolbarbutton-hover-background: var(--calm-bg-3) !important;
+  --toolbarbutton-active-background: #333333 !important;
+  --tab-selected-bgcolor: var(--calm-bg-1) !important;
+  --tab-selected-textcolor: var(--calm-text) !important;
+  --tab-hover-background-color: #1a1a1a !important;
+  --tabs-border-color: transparent !important;
+  --chrome-content-separator-color: var(--calm-border) !important;
+  --focus-outline-color: var(--calm-accent) !important;
+
+  --arrowpanel-background: var(--calm-bg-1) !important;
+  --arrowpanel-color: var(--calm-text) !important;
+  --arrowpanel-border-color: var(--calm-border) !important;
+  --urlbarView-highlight-background: var(--calm-bg-3) !important;
+  --urlbarView-highlight-color: var(--calm-text) !important;
+  --urlbarView-separator-color: var(--calm-border) !important;
+  --sidebar-background-color: var(--calm-bg-0) !important;
+  --sidebar-text-color: var(--calm-text) !important;
+
+  /* Пропорции: низкие вкладки и тулбар */
+  --tab-min-height: 26px !important;
+  --tab-block-margin: 4px !important;
+  --tab-border-radius: 9px !important;
+  --toolbarbutton-inner-padding: 5px !important;
+  --toolbarbutton-outer-padding: 1px !important;
+  --urlbar-min-height: 26px !important;
+  --urlbar-container-height: 32px !important;
+}
+
+/* ---------- Полоса вкладок ---------- */
+#navigator-toolbox {
+  background-color: var(--calm-bg-0) !important;
+  border-bottom: 1px solid var(--calm-border) !important;
+}
+#TabsToolbar {
+  background: var(--calm-bg-0) !important;
+  min-height: 34px !important;
+}
+#tabbrowser-tabs { --tab-min-width: 120px !important; }
+
+.tabbrowser-tab {
+  font-size: 11.5px !important;
+  padding-inline: 2px !important;
+}
+.tab-background {
+  border-radius: var(--tab-border-radius) !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+.tab-background:is([selected], [multiselected]) {
+  background: var(--calm-bg-1) !important;
+}
+.tabbrowser-tab:not([selected]) .tab-label { color: var(--calm-text-dim) !important; }
+.tab-icon-image { width: 14px !important; height: 14px !important; }
+.tab-close-button {
+  width: 18px !important; height: 18px !important;
+  padding: 4px !important; opacity: .55;
+}
+.tab-close-button:hover { opacity: 1; background: var(--calm-bg-3) !important; }
+
+/* Тонкий разделитель между неактивными вкладками, как в Chrome */
+.tabbrowser-tab:not([selected], :hover) + .tabbrowser-tab:not([selected], :hover) .tab-stack::before {
+  content: ""; position: absolute; inset-block: 9px; inset-inline-start: -2px;
+  width: 1px; background: var(--calm-border);
+}
+
+/* Убираем «firefox view» и лишние отступы */
+#firefox-view-button { display: none !important; }
+.titlebar-spacer[type="pre-tabs"] { width: 8px !important; }
+.titlebar-spacer[type="post-tabs"] { width: 8px !important; }
+
+/* ---------- Строка навигации ---------- */
+#nav-bar {
+  background: var(--calm-bg-1) !important;
+  border-top: none !important;
+  box-shadow: none !important;
+  padding-block: 2px !important;
+}
+#PersonalToolbar { background: var(--calm-bg-1) !important; }
+
+/* Поле адреса: на всю ширину, мягкие углы */
+#urlbar-container { margin-inline: 4px !important; }
+#urlbar-background {
+  border-radius: 11px !important;
+  border: 1px solid transparent !important;
+  box-shadow: none !important;
+}
+#urlbar[focused] > #urlbar-background,
+#urlbar[open] > #urlbar-background {
+  border-color: var(--calm-accent) !important;
+  outline: none !important;
+}
+#urlbar-input { font-size: 12.5px !important; }
+#urlbar:not([focused]) #urlbar-input { color: var(--calm-text-dim) !important; }
+
+/* Прячем визуальный шум в поле адреса */
+#tracking-protection-icon-container,
+#identity-permission-box,
+#pageActionButton,
+#star-button-box:not(:hover),
+#reader-mode-button,
+#translations-button,
+#urlbar-zoom-button,
+.urlbar-go-button,
+#picture-in-picture-button { opacity: .7; }
+#urlbar-search-mode-indicator, #searchmode-switcher-chicklet { display: none !important; }
+
+/* Выпадающие подсказки */
+.urlbarView { background: var(--calm-bg-2) !important; }
+.urlbarView-row[selected] { background: var(--calm-bg-3) !important; }
+
+/* Иконки тулбара — без контраста */
+toolbarbutton .toolbarbutton-icon { fill-opacity: 1; opacity: .85; }
+toolbarbutton:hover .toolbarbutton-icon { opacity: 1; }
+
+/* ---------- Меню и панели ---------- */
+menupopup, panel {
+  --panel-background: var(--calm-bg-1) !important;
+  --panel-color: var(--calm-text) !important;
+  --panel-border-color: var(--calm-border) !important;
+  --panel-border-radius: 8px !important;
+}
+
+/* Без резкой границы между интерфейсом и страницей */
+#tabbrowser-tabbox, #browser { background: #181818 !important; }
+.browserStack > browser { outline: none !important; }
